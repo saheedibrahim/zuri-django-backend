@@ -1,6 +1,6 @@
 from email.policy import default
 from django.db import models
-from datetime import datetime
+from datetime import datetime, date
 
 # Create your models here.
 class Artiste(models.Model):
@@ -14,7 +14,7 @@ class Artiste(models.Model):
 class Song(models.Model):
     artiste_id = models.ForeignKey(Artiste, on_delete = models.CASCADE)
     title = models.CharField(max_length = 400) 
-    date_released = models.DateField(default = datetime.today)
+    date_released = models.DateField(date)
     likes = models.IntegerField()
 
     def __str__(self):
@@ -22,6 +22,7 @@ class Song(models.Model):
 
 class Lyric(models.Model):
     song_id  = models.ForeignKey(Song, on_delete = models.CASCADE)
+    # song_id  = models.ManyToManyField(Song)
     content = models.CharField(max_length = 400)
 
     def __str__(self):
